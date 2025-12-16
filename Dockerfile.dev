@@ -1,13 +1,10 @@
-FROM node:14-alpine
+FROM node:lts-alpine
 
-USER node
-RUN mkdir -p /home/node/app
-WORKDIR /home/node/app
+WORKDIR '/app'
 
-COPY --chown=node:node ./package.json ./
+COPY package.json .
 RUN npm install
 
-#Can be removed if we have mapped volume to the local src folder.
-COPY --chown=node:node ./ ./
+COPY . .
 
-CMD ["npm","start"]
+CMD ["npm", "run", "start"]
